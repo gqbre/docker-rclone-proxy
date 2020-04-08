@@ -4,9 +4,7 @@
 
 # Docker Rclone Proxy
 
-Modify from [mumiehub/rclone-mount](https://hub.docker.com/r/mumiehub/rclone-mount)
-
-
+Project's DockerHub [https://hub.docker.com/r/gqbre/docker-rclone-proxy](https://hub.docker.com/r/gqbre/docker-rclone-proxy)
 
 Lightweight and simple Container Image (`alpine:latest - 160MB`) with compiled rclone (https://github.com/ncw/rclone master).
 
@@ -40,8 +38,8 @@ docker run -d --name docker-rclone-proxy \
 
 
 > HTTP Proxy commands:
+> Set HTTP/S Proxy before mount conmands
 
-Set HTTP/S Proxy before mount conmands
 - -e Proxy="false"
 - -e ProxyTarget="host.docker.internal"
 - -e ProxyPort="1087"
@@ -73,3 +71,6 @@ All Commands can be found at [https://rclone.org/commands/rclone_mount/](https:/
 ### Troubleshooting:
 When you force remove the container, you have to `sudo fusermount -u -z /mnt/mediaefs` on the hostsystem!
 
+### Thanks
+
+This project base on [mumiehub/rclone-mount](https://hub.docker.com/r/mumiehub/rclone-mount)
