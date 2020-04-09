@@ -71,6 +71,9 @@ All Commands can be found at [https://rclone.org/commands/rclone_mount/](https:/
 ### Troubleshooting:
 When you force remove the container, you have to `sudo fusermount -u -z /mnt/mediaefs` on the hostsystem!
 
+
+If you get an error like "docker: Error response from daemon: linux mounts: path /volume1/xxx is mounted on /volume1 but it is not a shared mount.", or "umount: can't unmount /mnt/mediaefs: Invalid argument" in Synology NAS(群晖) DSM operating system because of the `:shared` tag. Maybe you should try the command `sudo mount --make-shared /volume1` before runing the docker container, remember to change /volume1 to match your real setup.
+
 ### Thanks
 
 This project base on [mumiehub/rclone-mount](https://hub.docker.com/r/mumiehub/rclone-mount)
