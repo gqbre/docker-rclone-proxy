@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-08 00:35:34
+ * @LastEditTime: 2020-04-10 11:25:24
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /docker-rclone-proxy/README.md
+ -->
 [rcloneurl]: https://rclone.org
 
 [<img src="https://rclone.org/img/logo_on_light__horizontal_color.svg" width="50%" alt="rclone logo">](https://rclone.org/)
@@ -5,6 +13,8 @@
 # Docker Rclone Proxy
 
 Project's DockerHub [https://hub.docker.com/r/gqbre/docker-rclone-proxy](https://hub.docker.com/r/gqbre/docker-rclone-proxy)
+
+Tutorial in Chinese [https://www.sheyilin.com/2020/04/docker-rclone-proxy](https://www.sheyilin.com/2020/04/docker-rclone-proxy)
 
 Lightweight and simple Container Image (`alpine:latest - 160MB`) with compiled rclone (https://github.com/ncw/rclone master).
 
@@ -57,19 +67,20 @@ docker run -d --name docker-rclone-proxy \
 |`UnmountCommands`="-u -z"| |default unmount commands|
 |`AccessFolder`="/mnt" ||access with --volumes-from rclone-mount, changes of AccessFolder have no impact because its the exposed folder in the dockerfile.|
 |`Proxy`="false"| |use http/s proxy setting or not|
-|`ProxyTarget`="host.docker.internal"| |default `host.docker.internal` to connect the host machine (docker version 18.03+ supported)|
+|`ProxyTarget`="host.docker.internal"| |default `host.docker.internal` to connect the host machine (docker version 18.03+ supported but unreliable), set `172.17.0.1` in Synology DSM|
 |`ProxyPort`="1087"| |port of http/s proxy|
 
 
 ### Use your own MountCommands with:
-```vim
--e MountCommands="--allow-other --allow-non-empty --dir-cache-time 48h --poll-interval 5m --buffer-size 128M"
+```Recommended:
+-e MountCommands="--allow-other --allow-non-empty --buffer-size 32M --vfs-read-chunk-size=32M --vfs-read-chunk-size-limit 2048M --vfs-cache-mode writes --dir-cache-time 96h"
 ```
 
 All Commands can be found at [https://rclone.org/commands/rclone_mount/](https://rclone.org/commands/rclone_mount/). Use `--buffer-size 256M` (dont go too high), when you encounter some "Direct Stream" problems on Plex Media Server (Samsung Smart TV for example).
 
 ### Troubleshooting:
 When you force remove the container, you have to `sudo fusermount -u -z /mnt/mediaefs` on the hostsystem!
+The `ProxyTarget` with value `host.docker.internal` is unreliabled, try `172.17.0.1` in Linux like Synology DSM, or use real IP address instead. Or you can try `--network host` mode to use host networking, with setting `ProxyTarget=localhost` to connect to host machine.
 
 
 If you get an error like "docker: Error response from daemon: linux mounts: path /volume1/xxx is mounted on /volume1 but it is not a shared mount.", or "umount: can't unmount /mnt/mediaefs: Invalid argument" in Synology NAS(群晖) DSM operating system because of the `:shared` tag. Maybe you should try the command `sudo mount --make-shared /volume1` before runing the docker container, remember to change /volume1 to match your real setup.
