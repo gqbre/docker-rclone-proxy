@@ -12,9 +12,9 @@
 
 # Docker Rclone Proxy
 
-Project's DockerHub [https://hub.docker.com/r/gqbre/docker-rclone-proxy](https://hub.docker.com/r/gqbre/docker-rclone-proxy)
+中文指引： [https://www.sheyilin.com/2020/04/docker-rclone-proxy](https://www.sheyilin.com/2020/04/docker-rclone-proxy)
 
-Tutorial in Chinese [https://www.sheyilin.com/2020/04/docker-rclone-proxy](https://www.sheyilin.com/2020/04/docker-rclone-proxy)
+Project's DockerHub [https://hub.docker.com/r/gqbre/docker-rclone-proxy](https://hub.docker.com/r/gqbre/docker-rclone-proxy)
 
 Lightweight and simple Container Image (`alpine:latest - 160MB`) with compiled rclone (https://github.com/ncw/rclone master).
 
@@ -79,7 +79,7 @@ docker run -d --name docker-rclone-proxy \
 All Commands can be found at [https://rclone.org/commands/rclone_mount/](https://rclone.org/commands/rclone_mount/). Use `--buffer-size 256M` (dont go too high), when you encounter some "Direct Stream" problems on Plex Media Server (Samsung Smart TV for example).
 
 ### Troubleshooting:
-When you force remove the container, you have to execute `sudo fusermount -u -z /mnt/mediaefs` on the hostsystem! 
+When you force remove the container, you have to execute `sudo fusermount -u -z /mnt/mediaefs` on the hostsystem!
 
 The `ProxyTarget` with value `host.docker.internal` is unreliabled, try `172.17.0.1` in Linux like Synology DSM, or use real IP address instead. Or you can try `--network host` mode to use host networking, with setting `ProxyTarget=localhost` to connect to host machine.
 
