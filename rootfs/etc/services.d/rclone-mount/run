@@ -19,7 +19,7 @@ fi
 
 ## ECHO DEBUG
 if [ "$DEBUG" = true ]; then
-    echo -e "${PREFFIX} [DEBUG] command: /usr/sbin/rclone --config $ConfigPath mount $RemotePath $MountPoint $MountCommands"
+    echo -e "${PREFFIX} [DEBUG] command: /usr/local/sbin/rclone --config $ConfigPath mount $RemotePath $MountPoint $MountCommands"
 fi
 
-/usr/sbin/rclone --config $ConfigPath mount $RemotePath $MountPoint $MountCommands
+/usr/local/sbin/rclone --config $ConfigPath mount $RemotePath $MountPoint $MountCommands
